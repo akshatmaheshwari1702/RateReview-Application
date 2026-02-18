@@ -26,3 +26,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 .cache/
+
+# Documentation (internal)
+PROJECT_PLAN.md
