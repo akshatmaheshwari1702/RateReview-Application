@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import SearchBar from '../Common/SearchBar';
 import '../../styles/components/Header.css';
 
-/**
- * Header Component with Logo and Navigation
- */
 const Header = ({ searchQuery, onSearchChange }) => {
   return (
     <header className="header">

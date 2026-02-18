@@ -1,11 +1,6 @@
 import { format, parseISO } from 'date-fns';
 
-/**
- * Format date to display format
- * @param {string | Date} date - Date to format
- * @param {string} formatStr - Format string (default: 'dd-MM-yyyy, HH:mm')
- * @returns {string} Formatted date string
- */
+
 export const formatDate = (date, formatStr = 'dd-MM-yyyy, HH:mm') => {
   if (!date) return '';
   
@@ -18,20 +13,12 @@ export const formatDate = (date, formatStr = 'dd-MM-yyyy, HH:mm') => {
   }
 };
 
-/**
- * Format date for display (simple format)
- * @param {string | Date} date - Date to format
- * @returns {string} Formatted date string (DD-MM-YYYY)
- */
+
 export const formatSimpleDate = (date) => {
   return formatDate(date, 'dd-MM-yyyy');
 };
 
-/**
- * Format date for input fields
- * @param {string | Date} date - Date to format
- * @returns {string} Formatted date string (YYYY-MM-DD)
- */
+
 export const formatDateForInput = (date) => {
   return formatDate(date, 'yyyy-MM-dd');
 };

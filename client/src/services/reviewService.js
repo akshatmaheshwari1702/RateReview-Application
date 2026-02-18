@@ -1,8 +1,5 @@
 import api from './api';
 
-/**
- * Review Service - Handles all review-related API calls
- */
 
 export const reviewService = {
   /**

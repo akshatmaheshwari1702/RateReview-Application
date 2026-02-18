@@ -1,8 +1,5 @@
 import '../../styles/components/Button.css';
 
-/**
- * Reusable Button Component
- */
 const Button = ({
   children,
   onClick,

@@ -7,9 +7,7 @@ import Button from '../components/Common/Button';
 import AddCompanyModal from '../components/Modal/AddCompanyModal';
 import '../styles/components/HomePage.css';
 
-/**
- * Home Page - Company Listing
- */
+
 const HomePage = () => {
   const {
     companies,
@@ -26,7 +24,7 @@ const HomePage = () => {
 
   const [isAddCompanyModalOpen, setIsAddCompanyModalOpen] = useState(false);
 
-  // Fetch companies on mount and when filters change
+
   useEffect(() => {
     fetchCompanies();
   }, [fetchCompanies]);

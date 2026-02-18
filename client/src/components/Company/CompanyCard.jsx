@@ -5,10 +5,6 @@ import Button from '../Common/Button';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import '../../styles/components/CompanyCard.css';
 
-/**
- * Company Card Component
- * Displays company information in a card format
- */
 const CompanyCard = ({ company }) => {
   const navigate = useNavigate();
 

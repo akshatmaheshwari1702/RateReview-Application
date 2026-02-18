@@ -5,9 +5,6 @@ import StarRating from '../Common/StarRating';
 import { useApp } from '../../context/AppContext';
 import '../../styles/components/Modal.css';
 
-/**
- * Add Review Modal Component
- */
 const AddReviewModal = ({ isOpen, onClose, companyId }) => {
   const { createReview } = useApp();
   const [formData, setFormData] = useState({
@@ -65,7 +62,6 @@ const AddReviewModal = ({ isOpen, onClose, companyId }) => {
         ...formData,
         companyId,
       });
-      // Reset form and close modal
       setFormData({
         userName: '',
         subject: '',

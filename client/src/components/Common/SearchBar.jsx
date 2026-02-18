@@ -1,9 +1,6 @@
 import { FaSearch } from 'react-icons/fa';
 import '../../styles/components/SearchBar.css';
 
-/**
- * Search Bar Component
- */
 const SearchBar = ({ value, onChange, placeholder = 'Search...' }) => {
   return (
     <div className="search-bar">

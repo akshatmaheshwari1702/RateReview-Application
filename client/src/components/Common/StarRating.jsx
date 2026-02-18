@@ -2,13 +2,6 @@ import { useState } from 'react';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import '../../styles/components/StarRating.css';
 
-/**
- * Star Rating Component
- * @param {number} rating - Rating value (0-5)
- * @param {function} onChange - Callback when rating changes (for interactive mode)
- * @param {boolean} interactive - Whether stars are clickable
- * @param {string} size - Size of stars ('small', 'medium', 'large')
- */
 const StarRating = ({ 
   rating = 0, 
   onChange = null, 
@@ -17,9 +10,6 @@ const StarRating = ({
 }) => {
   const [hoverRating, setHoverRating] = useState(0);
 
-  /**
-   * Render individual star
-   */
   const renderStar = (index) => {
     const starValue = index + 1;
     const currentRating = interactive && hoverRating ? hoverRating : rating;

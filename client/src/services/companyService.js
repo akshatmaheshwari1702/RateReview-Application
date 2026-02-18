@@ -1,8 +1,5 @@
 import api from './api';
 
-/**
- * Company Service - Handles all company-related API calls
- */
 
 export const companyService = {
   /**

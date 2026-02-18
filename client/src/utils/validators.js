@@ -1,47 +1,32 @@
-/**
- * Validation utility functions
- */
 
-/**
- * Validate email format
- */
+
 export const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-/**
- * Validate required field
- */
+
 export const isRequired = (value) => {
   return value !== null && value !== undefined && value.toString().trim() !== '';
 };
 
-/**
- * Validate minimum length
- */
+
 export const minLength = (value, min) => {
   return value && value.toString().length >= min;
 };
 
-/**
- * Validate maximum length
- */
+
 export const maxLength = (value, max) => {
   return value && value.toString().length <= max;
 };
 
-/**
- * Validate rating (1-5)
- */
+
 export const isValidRating = (rating) => {
   const numRating = Number(rating);
   return !isNaN(numRating) && numRating >= 1 && numRating <= 5;
 };
 
-/**
- * Validate form data
- */
+
 export const validateForm = (data, rules) => {
   const errors = {};
 

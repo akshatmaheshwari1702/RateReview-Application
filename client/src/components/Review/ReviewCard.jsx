@@ -2,12 +2,8 @@ import { formatDate } from '../../utils/dateFormatter';
 import StarRating from '../Common/StarRating';
 import '../../styles/components/ReviewCard.css';
 
-/**
- * Review Card Component
- * Displays a single review
- */
+
 const ReviewCard = ({ review }) => {
-  // Generate avatar initials
   const getInitials = (name) => {
     return name
       .split(' ')
@@ -17,9 +13,8 @@ const ReviewCard = ({ review }) => {
       .slice(0, 2);
   };
 
-  // Generate random avatar color based on name
   const getAvatarColor = (name) => {
-    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
+    const colors = ['#FF6B6B', '#172b2a', '#45B7D1', '#FFA07A', '#98D8C8'];
     const index = name.length % colors.length;
     return colors[index];
   };

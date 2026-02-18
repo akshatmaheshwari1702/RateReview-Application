@@ -10,9 +10,7 @@ import AddReviewModal from '../components/Modal/AddReviewModal';
 import { formatSimpleDate } from '../utils/dateFormatter';
 import '../styles/components/CompanyDetailPage.css';
 
-/**
- * Company Detail Page - Shows company info and reviews
- */
+
 const CompanyDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -53,7 +51,6 @@ const CompanyDetailPage = () => {
     );
   }
 
-  // Generate initials
   const getInitials = (name) => {
     return name
       .split(' ')

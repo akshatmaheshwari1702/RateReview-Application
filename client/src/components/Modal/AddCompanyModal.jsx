@@ -4,9 +4,7 @@ import Button from '../Common/Button';
 import { useApp } from '../../context/AppContext';
 import '../../styles/components/Modal.css';
 
-/**
- * Add Company Modal Component
- */
+
 const AddCompanyModal = ({ isOpen, onClose }) => {
   const { createCompany } = useApp();
   const [formData, setFormData] = useState({
@@ -42,7 +40,6 @@ const AddCompanyModal = ({ isOpen, onClose }) => {
     try {
       console.log('📤 Sending company data:', formData);
       await createCompany(formData);
-      // Reset form and close modal
       setFormData({
         name: '',
         location: '',
