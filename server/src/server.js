@@ -16,8 +16,16 @@ connectDB();
 
 // Middleware
 // CORS configuration - Must be BEFORE routes
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://rate-review-application-ta3m.vercel.app',
+];
+
 app.use(cors({
-  origin: true, // Allow all origins in development
+  origin: process.env.NODE_ENV === 'production' 
+    ? allowedOrigins 
+    : true, // Allow all origins in development
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
