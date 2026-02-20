@@ -30,7 +30,7 @@ export const AppProvider = ({ children }) => {
       if (sortBy) params.sortBy = sortBy;
 
       const response = await companyService.getAll(params);
-      setCompanies(response.data);
+      setCompanies(response.data || []);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch companies");
       console.error("Error fetching companies:", err);
@@ -48,7 +48,7 @@ export const AppProvider = ({ children }) => {
 
     try {
       const response = await companyService.getById(id);
-      setSelectedCompany(response.data);
+      setSelectedCompany(response.data || null);
       return response.data;
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch company");
@@ -69,7 +69,7 @@ export const AppProvider = ({ children }) => {
     try {
       const response = await companyService.create(companyData);
       await fetchCompanies(); // Refresh list
-      return response.data;
+      return response.data || null;
     } catch (err) {
       setError(err.response?.data?.message || "Failed to create company");
       console.error("Error creating company:", err);
@@ -88,7 +88,7 @@ export const AppProvider = ({ children }) => {
 
     try {
       const response = await reviewService.getByCompany(companyId);
-      setReviews(response.data);
+      setReviews(response.data || []);
       return response.data;
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch reviews");
@@ -111,7 +111,7 @@ export const AppProvider = ({ children }) => {
       // Refresh reviews and company data
       await fetchReviews(reviewData.companyId);
       await fetchCompanyById(reviewData.companyId);
-      return response.data;
+      return response.data || null;
     } catch (err) {
       setError(err.response?.data?.message || "Failed to create review");
       console.error("Error creating review:", err);
