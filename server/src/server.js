@@ -11,22 +11,19 @@ const errorHandler = require('./middleware/errorHandler');
 // Initialize Express app
 const app = express();
 
-// Connect to MongoDB (non-blocking for serverless)
-let dbConnected = false;
-connectDB()
-  .then(() => {
-    dbConnected = true;
-  })
-  .catch((err) => {
-    console.error('Failed to connect to MongoDB:', err.message);
-  });
-
-// Middleware to check DB connection
-app.use((req, res, next) => {
-  if (!dbConnected && req.path !== '/') {
-    console.warn('Database not connected yet');
+// Middleware to ensure DB connection for each request (for serverless)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('Database connection failed:', error);
+    res.status(503).json({
+      success: false,
+      message: 'Database connection unavailable',
+      error: error.message
+    });
   }
-  next();
 });
 
 // Middleware
@@ -58,11 +55,12 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+  const mongoose = require('mongoose');
   res.json({
     message: 'Welcome to Review&RATE API',
     version: '1.0.0',
-    status: dbConnected ? 'connected' : 'connecting',
+    status: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
     mongodbUri: process.env.MONGODB_URI ? 'configured' : 'missing',
     endpoints: {
       companies: '/api/companies',
@@ -72,10 +70,11 @@ app.get('/', (req, res) => {
 });
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', async (req, res) => {
+  const mongoose = require('mongoose');
   res.json({
     status: 'ok',
-    database: dbConnected ? 'connected' : 'disconnected',
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
     timestamp: new Date().toISOString(),
   });
 });
