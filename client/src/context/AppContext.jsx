@@ -53,6 +53,7 @@ export const AppProvider = ({ children }) => {
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch company");
       console.error("Error fetching company:", err);
+      setSelectedCompany(null);
       return null;
     } finally {
       setLoading(false);
@@ -93,6 +94,7 @@ export const AppProvider = ({ children }) => {
     } catch (err) {
       setError(err.response?.data?.message || "Failed to fetch reviews");
       console.error("Error fetching reviews:", err);
+      setReviews([]);
       return [];
     } finally {
       setLoading(false);

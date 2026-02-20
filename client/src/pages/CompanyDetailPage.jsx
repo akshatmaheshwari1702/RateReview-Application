@@ -25,12 +25,33 @@ const CompanyDetailPage = () => {
   } = useApp();
 
   const [isAddReviewModalOpen, setIsAddReviewModalOpen] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     if (id) {
-      fetchCompanyById(id);
-      fetchReviews(id);
+      // Set transitioning state to show loading overlay
+      setIsTransitioning(true);
+      
+      // Fetch data only if component is still mounted
+      const loadData = async () => {
+        const company = await fetchCompanyById(id);
+        if (isMounted && company) {
+          await fetchReviews(id);
+        }
+        if (isMounted) {
+          setIsTransitioning(false);
+        }
+      };
+      
+      loadData();
     }
+
+    // Cleanup: prevent state updates if component unmounts or id changes
+    return () => {
+      isMounted = false;
+    };
   }, [id, fetchCompanyById, fetchReviews]);
 
   if (loading && !selectedCompany) {
@@ -51,6 +72,9 @@ const CompanyDetailPage = () => {
     );
   }
 
+  // Check if the displayed company matches the current URL id
+  const isCorrectCompany = selectedCompany._id === id;
+
   const getInitials = (name) => {
     return name
       .split(' ')
@@ -63,6 +87,11 @@ const CompanyDetailPage = () => {
   return (
     <div className="company-detail-page">
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+      {(isTransitioning || !isCorrectCompany) && selectedCompany && (
+        <div className="loading-overlay">
+          <div className="loading-spinner">Loading...</div>
+        </div>
+      )}
 
       <main className="detail-content">
         <Button
