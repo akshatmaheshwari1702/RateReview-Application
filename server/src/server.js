@@ -11,8 +11,23 @@ const errorHandler = require('./middleware/errorHandler');
 // Initialize Express app
 const app = express();
 
-// Connect to MongoDB
-connectDB();
+// Connect to MongoDB (non-blocking for serverless)
+let dbConnected = false;
+connectDB()
+  .then(() => {
+    dbConnected = true;
+  })
+  .catch((err) => {
+    console.error('Failed to connect to MongoDB:', err.message);
+  });
+
+// Middleware to check DB connection
+app.use((req, res, next) => {
+  if (!dbConnected && req.path !== '/') {
+    console.warn('Database not connected yet');
+  }
+  next();
+});
 
 // Middleware
 // CORS configuration - Must be BEFORE routes
@@ -47,10 +62,21 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to Review&RATE API',
     version: '1.0.0',
+    status: dbConnected ? 'connected' : 'connecting',
+    mongodbUri: process.env.MONGODB_URI ? 'configured' : 'missing',
     endpoints: {
       companies: '/api/companies',
       reviews: '/api/reviews',
     },
+  });
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    database: dbConnected ? 'connected' : 'disconnected',
+    timestamp: new Date().toISOString(),
   });
 });
 
