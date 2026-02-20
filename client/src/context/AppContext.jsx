@@ -42,7 +42,7 @@ export const AppProvider = ({ children }) => {
   /**
    * Fetch company by ID
    */
-  const fetchCompanyById = async (id) => {
+  const fetchCompanyById = useCallback(async (id) => {
     setLoading(true);
     setError(null);
 
@@ -57,12 +57,12 @@ export const AppProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   /**
    * Create new company
    */
-  const createCompany = async (companyData) => {
+  const createCompany = useCallback(async (companyData) => {
     setLoading(true);
     setError(null);
 
@@ -77,12 +77,12 @@ export const AppProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchCompanies]);
 
   /**
    * Fetch reviews for a company
    */
-  const fetchReviews = async (companyId) => {
+  const fetchReviews = useCallback(async (companyId) => {
     setLoading(true);
     setError(null);
 
@@ -97,12 +97,12 @@ export const AppProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   /**
    * Create new review
    */
-  const createReview = async (reviewData) => {
+  const createReview = useCallback(async (reviewData) => {
     setLoading(true);
     setError(null);
 
@@ -119,7 +119,7 @@ export const AppProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchReviews, fetchCompanyById]);
 
   /**
    * Clear error
